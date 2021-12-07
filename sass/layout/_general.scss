@@ -1,0 +1,10 @@
+body
+{
+    max-width: 1240px;
+    margin: 0 auto;
+    @include media-under("max-width")
+    {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez de nombreuses recettes simples et faciles à réaliser !">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css" />      <!-- With Autoprefixer -->
+    <!-- !!!!!!!!!!!! CHANGE WITH PREFIXED AT THE END -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
+    <title>Les Petits Plats</title>
+</head>
+
+<body>
+    
+    <header class="header">
+        <a class="header_link" href="#"><img class="header_logo" src="assets/logo/lespetitsplats.svg" alt="Logo des petits plats - Page d'accueil" /></a>
+    </header>
+
+    <main>
+
+        <section class="research_section">
+            <form class="research_form" method="post" action="#">
+                <input class="research_form_type" type="search" name="Recherche" placeholder="Rechercher un ingrédient, un appareil, un ustensile ou une recette" />
+            </form>
+            <i class="research_icon fas fa-search"></i>
+        </section>
+
+        <section class="tags_section"></section>
+
+        <section class="select_section">
+            <div class="select select--ingredients">
+                <input type="checkbox" id="select_input--ingredients" class="select_input select_input--ingredients" aria-label="Choix de l'option de tri" />
+                <label for="select_input--ingredients" class="select_label select_label--ingredients">
+                    <span class="select_label_text">Ingrédients</span>
+                    <span class="select_label_icon select_label_icon--ingredients"></span>
+                </label>
+                <div class="select_menu select_menu--ingredients" role="listbox" aria-expanded="false">
+                    <ul class="select_menu_list select_menu_list--ingredients" role="listbox" aria-expanded="false">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="select select--apparels">
+                <input type="checkbox" id="select_input--apparels" class="select_input select_input--apparels" aria-label="Choix de l'option de tri" />
+                <label for="select_input--apparels" class="select_label select_label--apparels">
+                    <span class="select_label_text">Appareils</span>
+                    <span class="select_label_icon select_label_icon--apparels"></span>
+                </label>
+                <div class="select_menu select_menu--apparels" role="listbox" aria-expanded="false">
+                    <ul class="select_menu_list select_menu_list--apparels" role="listbox" aria-expanded="false">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="select select--utensils">
+                <input type="checkbox" id="select_input--utensils" class="select_input select_input--utensils" aria-label="Choix de l'option de tri" />
+                <label for="select_input--utensils" class="select_label select_label--utensils">
+                    <span class="select_label_text">Ustensiles</span>
+                    <span class="select_label_icon select_label_icon--utensils"></span>
+                </label>
+                <div class="select_menu select_menu--utensils" role="listbox" aria-expanded="false">
+                    <ul class="select_menu_list select_menu_list--utensils" role="listbox" aria-expanded="false">
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipes_section"></section>
+
+    </main>
+
+    <footer class="footer"></footer>
+
+    <script src="js/constructors/Recipe.js"></script>
+    <script src="js/pages/index.js" type="module"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+.header
+{
+    width: 100%;
+    @include flex-row(center, stretch);
+
+    &_link
+    {
+        height: inherit;
+        margin: 20px;
+    }
+}

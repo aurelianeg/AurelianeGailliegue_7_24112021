@@ -1,0 +1,27 @@
+/* --------------- Color chart --------------- */
+
+$ingredients-color: #3282F7;
+$apparels-color: #68D9A4;
+$utensils-color: #ED6454;
+
+$light-ingredients-color: rgba(#3282F7, 0.7);
+$light-apparels-color: rgba(#68D9A4, 0.7);
+$light-utensils-color: rgba(#ED6454, 0.7);
+
+$background-grey: #E7E7E7;
+$img-grey: #C7BEBE;
+$text-grey: rgba(#000000, 0.25);
+
+
+/* --------------- Breakpoints --------------- */
+
+$breakpoints:
+(
+    "mobile-max": 767px,
+    "tablet-min": 768px,
+    "tablet-max": 1023px,
+    "desktop-min": 1024px,
+    "max-width": 1240px,
+    "desktop-max": 1439px,
+    "largedesktop-min": 1440px
+);

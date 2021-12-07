@@ -1,0 +1,24 @@
+{
+    "name": "AurelianeGailliegue_7_24112021",
+    "version": "1.0.0",
+    "description": "Creation of Les Petits Plats website based on the provided models",
+    "main": "js/index.js",
+    "scripts": {
+      "sass": "sass --watch ./sass/main.scss:./css/styles.css --style expanded",
+      "prefix": "postcss ./css/styles.css --use autoprefixer -d ./css/prefixed/"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/aurelianeg/AurelianeGailliegue_7_24112021.git"
+    },
+    "author": "Auréliane Gailliègue",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/aurelianeg/AurelianeGailliegue_7_24112021/issues"
+    },
+    "homepage": "https://github.com/aurelianeg/AurelianeGailliegue_7_24112021#readme",
+    "browserslist": "last 4 versions",
+    "devDependencies": {
+      "eslint": "^8.2.0"
+    }
+  }
