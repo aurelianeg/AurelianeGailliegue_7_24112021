@@ -109,7 +109,7 @@ class Recipe {
 
     get createIngredients()
     {
-        //<li><a class="select_menu_list_choice" id="XXX" role="option"></a></li>
+        //<li><a class="details_list_choice details_list_choice--ingredients" id="XXX" role="option"></a></li>
 
         const recipeIngredients = [];
 
@@ -117,7 +117,7 @@ class Recipe {
             const recipeIngredient = document.createElement("li");
             recipeIngredients.push(recipeIngredient);
             const recipeIngredientLink = document.createElement("a");
-            recipeIngredientLink.classList.add("select_menu_list_choice", "select_menu_list_choice--ingredients");
+            recipeIngredientLink.classList.add("details_list_choice", "details_list_choice--ingredients");
             recipeIngredientLink.setAttribute("id", `${this._ingredients[i].ingredient}`);
             recipeIngredientLink.setAttribute("role", "option");
             recipeIngredientLink.innerHTML = `${this._ingredients[i].ingredient}`;
@@ -129,11 +129,11 @@ class Recipe {
 
     get createApparel()
     {
-        //<li><a class="select_menu_list_choice" id="XXX" role="option"></a></li>
+        //<li><a class="details_list_choice details_list_choice--apparels" id="XXX" role="option"></a></li>
 
         const recipeApparel = document.createElement("li");
         const recipeApparelLink = document.createElement("a");
-        recipeApparelLink.classList.add("select_menu_list_choice", "select_menu_list_choice--apparels");
+        recipeApparelLink.classList.add("details_list_choice", "details_list_choice--apparels");
         recipeApparelLink.setAttribute("id", `${this._appliance}`);
         recipeApparelLink.setAttribute("role", "option");
         recipeApparelLink.innerHTML = `${this._appliance}`;
@@ -144,7 +144,7 @@ class Recipe {
 
     get createUtensils()
     {
-        //<li><a class="select_menu_list_choice" id="XXX" role="option"></a></li>
+        //<li><a class="details_list_choice details_list_choice--utensils" id="XXX" role="option"></a></li>
 
         const recipeUtensils = [];
 
@@ -152,7 +152,7 @@ class Recipe {
             const recipeUtensil = document.createElement("li");
             recipeUtensils.push(recipeUtensil);
             const recipeUtensilLink = document.createElement("a");
-            recipeUtensilLink.classList.add("select_menu_list_choice", "select_menu_list_choice--utensils");
+            recipeUtensilLink.classList.add("details_list_choice", "details_list_choice--utensils");
             recipeUtensilLink.setAttribute("id", `${this._ustensils[i]}`);
             recipeUtensilLink.setAttribute("role", "option");
             recipeUtensilLink.innerHTML = `${this._ustensils[i]}`;

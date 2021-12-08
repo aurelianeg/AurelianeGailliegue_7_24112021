@@ -41,22 +41,23 @@
     @include flex-row(space-between, center);
 }
 
-.select_section
+.details_section
 {
     height: 70px;
     margin-bottom: 50px;
     border-radius: 5px;
     @include flex-row(flex-start, center);
+    flex-wrap: wrap;
 }
 
-.select
+.details
 {
     width: 160px;
-    height: 30px;
+    height: 22px;
     margin-right: 20px;
-    padding: 20px;
+    padding : 24px 20px 24px 20px;
     border-radius: 5px;
-    @include flex-col(center, center);
+    @include flex-col(space-between, center);
     color: #FFFFFF;
     position: relative;
 
@@ -73,17 +74,53 @@
         background-color: $utensils-color;
     }
 
-    &_input
-    {
-        display: none;
-    }
-
-    &_label
+    &_summary
     {
         width: 100%;
         @include flex-row(space-between, center);
-        position: relative;
 
+        &_form
+        {
+            display: none;
+            width: 100%;
+
+            &_input
+            {
+                width: 100%;
+                border: none;
+
+                &--ingredients
+                {
+                    background-color: $ingredients-color;
+                    &::placeholder
+                    {
+                        color: $light-ingredients-color;
+                    }
+                }
+                &--apparels
+                {
+                    background-color: $apparels-color;
+                    &::placeholder
+                    {
+                        color: $light-apparels-color;
+                    }
+                }
+                &--utensils
+                {
+                    background-color: $utensils-color;
+                    &::placeholder
+                    {
+                        color: $light-utensils-color;
+                    }
+                }
+
+                &:focus
+                {
+                    outline: none;
+                }
+            }
+        }
+        
         &_icon
         {
             width: 20px;
@@ -98,8 +135,8 @@
                 background: #FFFFFF;
                 content: " ";
                 position: absolute;
-                top: 5px;
-                right: 0px;
+                top: 30px;
+                right: 25px;
                 z-index: 1;
             }
         
@@ -115,22 +152,27 @@
         }
     }
 
-    &_menu
+    &_list
     {
         width: 160px;
+        max-height: 410px;
+        margin: 0;
+        margin-left: -20px;
         padding: 20px;
         padding-bottom: 10px;
         border-radius: 5px;
         overflow: hidden;
-        position: absolute;
-        top: 45px;
-        left: 0;
-        display: none;
-        z-index: -1;
+        @include flex-col(flex-start, flex-start);
+        flex-wrap: wrap;
+        transform: translateY(-100%);
+        list-style: none;
+        transition: all 100ms ease-in-out;
+        z-index: 2;
 
         &--ingredients
         {
             background-color: $ingredients-color;
+            max-height: 1700px;
         }
         &--apparels
         {
@@ -141,124 +183,60 @@
             background-color: $utensils-color;
         }
 
-        &_list
+        & li
         {
-            max-height: 410px;
-            margin: 0px;
-            padding: 0px;
-            @include flex-col(flex-start, flex-start);
-            flex-wrap: wrap;
-            transform: translateY(-100%);
-            list-style: none;
+            width: 180px;
+            height: 40px;
+            padding-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        & li > a
+        {
+            width: inherit;
+            color: #FFFFFF;
+            cursor: pointer;
             transition: all 100ms ease-in-out;
+        }
 
-            &--ingredients
-            {
-                max-height: 1700px;
-            }
-
-            & li
-            {
-                width: 180px;
-                height: 40px;
-                padding-right: 20px;
-                display: flex;
-                align-items: center;
-            }
-
-            & li > a
-            {
-                width: inherit;
-                color: #FFFFFF;
-                cursor: pointer;
-                transition: all 100ms ease-in-out;
-            }
-
-            & li > a:hover
-            {
-                color: #000000;
-            }
+        & li > a:hover
+        {
+            color: #000000;
         }
     }
 }
 
-.select_input--ingredients:checked
+.details[open]
 {
-    & ~ .select_menu--ingredients
+    & .details_summary_text
     {
-        display: block;
-        z-index: 1;
+        display: none;
     }
 
-    & ~ .select_menu--ingredients ul
+    & .details_summary_form
+    {
+        display: block;
+    }
+
+    & > .details_list
     {
         transform: translateY(0);
     }
 
-    & ~ .select_label--ingredients .select_label_icon--ingredients::before
+    & > .details_summary .details_summary_icon::before
     {
         transform: translate(-5px, 0) rotate(45deg);
         z-index: 2;
     }
 
-    & ~ .select_label--ingredients .select_label_icon--ingredients::after
+    & > .details_summary .details_summary_icon::after
     {
         transform: translate(0, 0) rotate(-45deg);
         z-index: 2;
     }
 }
 
-.select_input--apparels:checked
-{
-    & ~ .select_menu--apparels
-    {
-        display: block;
-        z-index: 1;
-    }
-
-    & ~ .select_menu--apparels ul
-    {
-        transform: translateY(0);
-    }
-
-    & ~ .select_label--apparels .select_label_icon--apparels::before
-    {
-        transform: translate(-5px, 0) rotate(45deg);
-        z-index: 2;
-    }
-
-    & ~ .select_label--apparels .select_label_icon--apparels::after
-    {
-        transform: translate(0, 0) rotate(-45deg);
-        z-index: 2;
-    }
-}
-
-.select_input--utensils:checked
-{
-    & ~ .select_menu--utensils
-    {
-        display: block;
-        z-index: 1;
-    }
-
-    & ~ .select_menu--utensils ul
-    {
-        transform: translateY(0);
-    }
-
-    & ~ .select_label--utensils .select_label_icon--utensils::before
-    {
-        transform: translate(-5px, 0) rotate(45deg);
-        z-index: 2;
-    }
-
-    & ~ .select_label--utensils .select_label_icon--utensils::after
-    {
-        transform: translate(0, 0) rotate(-45deg);
-        z-index: 2;
-    }
-}
 
 .recipes_section
 {
@@ -269,6 +247,12 @@
 .recipes
 {
     width: 385px;
+    @include media-between("tablet-min", "max-width") {
+        width: 48%;
+    }
+    @include media-under ("mobile-max") {
+        width: 100%;
+    }
     height: 365px;
     margin-bottom: 40px;
     @include flex-col(space-between, stretch);

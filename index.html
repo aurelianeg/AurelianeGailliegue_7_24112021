@@ -37,42 +37,42 @@
 
         <section class="tags_section"></section>
 
-        <section class="select_section">
-            <div class="select select--ingredients">
-                <input type="checkbox" id="select_input--ingredients" class="select_input select_input--ingredients" aria-label="Choix de l'option de tri" />
-                <label for="select_input--ingredients" class="select_label select_label--ingredients">
-                    <span class="select_label_text">Ingrédients</span>
-                    <span class="select_label_icon select_label_icon--ingredients"></span>
-                </label>
-                <div class="select_menu select_menu--ingredients" role="listbox" aria-expanded="false">
-                    <ul class="select_menu_list select_menu_list--ingredients" role="listbox" aria-expanded="false">
-                    </ul>
-                </div>
-            </div>
+        <section class="details_section">
+            <details class="details details--ingredients">
+                <summary class="details_summary details_summary--ingredients">
+                    <span class="details_summary_text">Ingrédients</span>
+                    <form class="details_summary_form details_summary_form--ingredients" method="post" action="#">
+                        <input class="details_summary_form_input details_summary_form_input--ingredients" type="search" name="Recherche" placeholder="Rechercher un ingrédient" />
+                    </form>
+                    <span class="details_summary_icon details_summary_icon--ingredients"></span>
+                </summary>
+                <ul class="details_list details_list--ingredients" role="listbox" aria-expanded="false">
+                </ul>
+            </details>
 
-            <div class="select select--apparels">
-                <input type="checkbox" id="select_input--apparels" class="select_input select_input--apparels" aria-label="Choix de l'option de tri" />
-                <label for="select_input--apparels" class="select_label select_label--apparels">
-                    <span class="select_label_text">Appareils</span>
-                    <span class="select_label_icon select_label_icon--apparels"></span>
-                </label>
-                <div class="select_menu select_menu--apparels" role="listbox" aria-expanded="false">
-                    <ul class="select_menu_list select_menu_list--apparels" role="listbox" aria-expanded="false">
-                    </ul>
-                </div>
-            </div>
+            <details class="details details--apparels">
+                <summary class="details_summary details_summary--apparels">
+                    <span class="details_summary_text">Appareils</span>
+                    <form class="details_summary_form details_summary_form--apparels" method="post" action="#">
+                        <input class="details_summary_form_input details_summary_form_input--apparels" type="search" name="Recherche" placeholder="Rechercher un appareil" />
+                    </form>
+                    <span class="details_summary_icon details_summary_icon--apparels"></span>
+                </summary>
+                <ul class="details_list details_list--apparels" role="listbox" aria-expanded="false">
+                </ul>
+            </details>
 
-            <div class="select select--utensils">
-                <input type="checkbox" id="select_input--utensils" class="select_input select_input--utensils" aria-label="Choix de l'option de tri" />
-                <label for="select_input--utensils" class="select_label select_label--utensils">
-                    <span class="select_label_text">Ustensiles</span>
-                    <span class="select_label_icon select_label_icon--utensils"></span>
-                </label>
-                <div class="select_menu select_menu--utensils" role="listbox" aria-expanded="false">
-                    <ul class="select_menu_list select_menu_list--utensils" role="listbox" aria-expanded="false">
-                    </ul>
-                </div>
-            </div>
+            <details class="details details--utensils">
+                <summary class="details_summary details_summary--utensils">
+                    <span class="details_summary_text">Ustensiles</span>
+                    <form class="details_summary_form details_summary_form--utensils" method="post" action="#">
+                        <input class="details_summary_form_input details_summary_form_input--utensils" type="search" name="Recherche" placeholder="Rechercher un ustensile" />
+                    </form>
+                    <span class="details_summary_icon details_summary_icon--utensils"></span>
+                </summary>
+                <ul class="details_list details_list--utensils" role="listbox" aria-expanded="false">
+                </ul>
+            </details>
         </section>
 
         <section class="recipes_section"></section>

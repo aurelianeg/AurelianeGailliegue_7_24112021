@@ -4,9 +4,9 @@ $ingredients-color: #3282F7;
 $apparels-color: #68D9A4;
 $utensils-color: #ED6454;
 
-$light-ingredients-color: rgba(#3282F7, 0.7);
-$light-apparels-color: rgba(#68D9A4, 0.7);
-$light-utensils-color: rgba(#ED6454, 0.7);
+$light-ingredients-color: lighten($ingredients-color, 25%);
+$light-apparels-color: lighten($apparels-color, 25%);
+$light-utensils-color: lighten($utensils-color, 25%);
 
 $background-grey: #E7E7E7;
 $img-grey: #C7BEBE;

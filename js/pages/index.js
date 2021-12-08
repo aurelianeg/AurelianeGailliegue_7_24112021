@@ -3,14 +3,38 @@ import { recipes } from "../../data/recipes.js";
 // ============================== INITIALIZATION ==============================
 
 /**
+ * Add element (ingredient, apparel or utensil) only if it isn't already in the details list
+ * @param {DOMElement} recipeElement 
+ * @param {DOMElement} detailsListElements 
+ */
+function addElementNotAlreadyListed(recipeElement, detailsListElements) {
+
+    // Check if recipe's element is already in details
+    let isElementAlreadyListed = false;
+    for (let j = 0; j < detailsListElements.children.length; j++) {
+        if (detailsListElements.children[j].children[0].innerHTML == recipeElement.children[0].innerHTML) {
+            isElementAlreadyListed = true;
+        }
+    }
+    // Add element in details only if it isn't already in it
+    if (isElementAlreadyListed == false) {
+        detailsListElements.appendChild(recipeElement);
+    }
+    else {
+        recipeElement.remove();
+    }
+}
+
+
+/**
  * Display all recipes, ingredients, apparels and utensils
  */
 function initPage() {
 
     const recipesList = document.querySelector(".recipes_section");
-    const selectMenuListIngredients = document.querySelector(".select_menu_list--ingredients");
-    const selectMenuListApparels = document.querySelector(".select_menu_list--apparels");
-    const selectMenuListUtensils = document.querySelector(".select_menu_list--utensils");
+    const detailsListIngredients = document.querySelector(".details_list--ingredients");
+    const detailsListApparels = document.querySelector(".details_list--apparels");
+    const detailsListUtensils = document.querySelector(".details_list--utensils");
     
     recipes.forEach(function(recipe) {
         let recipeModel = new Recipe(recipe);
@@ -21,88 +45,17 @@ function initPage() {
 
         // Ingredients
         let recipeIngredients = recipeModel.createIngredients;
-        for (let i = 0; i < recipeIngredients.length; i++) {
-            let recipeIngredient = recipeIngredients[i];
-            // Check if recipe's utensil is already in select
-            let isIngredientAlreadyListed = false;
-            for (let j = 0; j < selectMenuListIngredients.children.length; j++) {
-                if (selectMenuListIngredients.children[j].children[0].innerHTML == recipeIngredient.children[0].innerHTML) {
-                    isIngredientAlreadyListed = true;
-                }
-            }
-            // Add apparel in select only if it isn't already in it
-            if (isIngredientAlreadyListed == false) {
-                selectMenuListIngredients.appendChild(recipeIngredient);
-            }
-            else {
-                recipeIngredient.remove();
-            }
-        }
-
+        recipeIngredients.forEach(function(recipeIngredient) {
+            addElementNotAlreadyListed(recipeIngredient, detailsListIngredients);
+        })
         // Apparels
         let recipeApparel = recipeModel.createApparel;
-        // Check if recipe's apparel is already in select
-        let isApparelAlreadyListed = false;
-        for (let j = 0; j < selectMenuListApparels.children.length; j++) {
-            if (selectMenuListApparels.children[j].children[0].innerHTML == recipeApparel.children[0].innerHTML) {
-                isApparelAlreadyListed = true;
-            }
-        }
-        // Add apparel in select only if it isn't already in it
-        if (isApparelAlreadyListed == false) {
-            selectMenuListApparels.appendChild(recipeApparel);
-        }
-        else {
-            recipeApparel.remove();
-        }
-
+        addElementNotAlreadyListed(recipeApparel, detailsListApparels);
         // Utensils
         let recipeUtensils = recipeModel.createUtensils;
-        for (let i = 0; i < recipeUtensils.length; i++) {
-            let recipeUtensil = recipeUtensils[i];
-            // Check if recipe's utensil is already in select
-            let isUtensilAlreadyListed = false;
-            for (let j = 0; j < selectMenuListUtensils.children.length; j++) {
-                if (selectMenuListUtensils.children[j].children[0].innerHTML == recipeUtensil.children[0].innerHTML) {
-                    isUtensilAlreadyListed = true;
-                }
-            }
-            // Add apparel in select only if it isn't already in it
-            if (isUtensilAlreadyListed == false) {
-                selectMenuListUtensils.appendChild(recipeUtensil);
-            }
-            else {
-                recipeUtensil.remove();
-            }
-        }
-    })
-
-    const selects = document.querySelectorAll(".select");
-    const selectInputs = document.querySelectorAll(".select_input");
-    const selectMenus = document.querySelectorAll(".select_menu");
-    const selectMenuListChoicesIngredients = document.querySelectorAll(".select_menu_list_choice--ingredients");
-    const selectMenuListChoicesApparels = document.querySelectorAll(".select_menu_list_choice--apparels");
-    const selectMenuListChoicesUtensils = document.querySelectorAll(".select_menu_list_choice--utensils");
-    const selectIngredientsWidth = Math.ceil(selectMenuListChoicesIngredients.length/40);
-    const selectApparelsWidth = Math.ceil(selectMenuListChoicesApparels.length/10);
-    const selectUtensilsWidth = Math.ceil(selectMenuListChoicesUtensils.length/10);
-    const selectWidths = [selectIngredientsWidth, selectApparelsWidth, selectUtensilsWidth];
-    
-    // Adapt select menu widths (based on the numbers of list elements) when opened and close select if opened
-    window.addEventListener("click", function(event) {
-        for (let i = 0; i < selects.length; i++) {
-            if (selectInputs[i].checked == true) {
-                if (event.target == selectInputs[i])
-                {
-                    selects[i].style.width = selectWidths[i]*200 + "px";
-                    selectMenus[i].style.width = selectWidths[i]*200 + "px";
-                }
-                else {
-                    selectInputs[i].checked = false;
-                    selects[i].style.width = "160px";
-                }
-            }
-        }
+        recipeUtensils.forEach(function(recipeUtensil) {
+            addElementNotAlreadyListed(recipeUtensil, detailsListUtensils);
+        })
     })
 
     // Add a blank div for rendering recipes (not multiple of 3) on wide screens
@@ -116,6 +69,33 @@ function initPage() {
             blankDiv.style.marginBottom = "40px";
             blankDiv.style.order = recipeElements.length;
         }
+    }
+    
+    const details = document.querySelectorAll(".details");
+    const detailsLists = document.querySelectorAll(".details_list");
+    const detailsWidths = [Math.ceil(document.querySelectorAll(".details_list_choice--ingredients").length/40), 
+                           Math.ceil(document.querySelectorAll(".details_list_choice--apparels").length/10),
+                           Math.ceil(document.querySelectorAll(".details_list_choice--utensils").length/10)];
+
+    // Adapt details widths (based on the numbers of list elements) when opened or closed
+    for (let i = 0; i < details.length; i++) {
+        details[i].addEventListener("toggle", function(event) {
+            if (!details[i].open) {
+                details[i].style.width = "160px";
+            }
+            else {
+                details[i].style.width = detailsWidths[i]*200 + "px";
+                detailsLists[i].style.width = detailsWidths[i]*200 + "px";
+
+                // Close opened details element if not selected
+                for (let j = 0; j < details.length; j++) {
+                    if (details[i] != details[j]) {
+                        details[j].style.width = "160px";
+                        details[j].open = false;
+                    }
+                }
+            }
+        })
     }
 
     console.log("Initialization done!");
