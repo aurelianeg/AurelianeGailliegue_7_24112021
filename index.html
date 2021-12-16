@@ -30,7 +30,7 @@
 
         <section class="research_section">
             <form class="research_form" method="post" action="#">
-                <input class="research_form_type" type="search" name="Recherche" placeholder="Rechercher un ingrédient, un appareil, un ustensile ou une recette" />
+                <input class="research_form_input" type="search" name="Recherche" placeholder="Rechercher un ingrédient, un appareil, un ustensile ou une recette" />
             </form>
             <i class="research_icon fas fa-search"></i>
         </section>
@@ -41,9 +41,7 @@
             <details class="details details--ingredients">
                 <summary class="details_summary details_summary--ingredients">
                     <span class="details_summary_text">Ingrédients</span>
-                    <form class="details_summary_form details_summary_form--ingredients" method="post" action="#">
-                        <input class="details_summary_form_input details_summary_form_input--ingredients" type="search" name="Recherche" placeholder="Rechercher un ingrédient" />
-                    </form>
+                    <input class="details_summary_input details_summary_input--ingredients" type="search" name="Recherche" placeholder="Rechercher un ingrédient" />
                     <span class="details_summary_icon details_summary_icon--ingredients"></span>
                 </summary>
                 <ul class="details_list details_list--ingredients" role="listbox" aria-expanded="false">
@@ -53,9 +51,7 @@
             <details class="details details--apparels">
                 <summary class="details_summary details_summary--apparels">
                     <span class="details_summary_text">Appareils</span>
-                    <form class="details_summary_form details_summary_form--apparels" method="post" action="#">
-                        <input class="details_summary_form_input details_summary_form_input--apparels" type="search" name="Recherche" placeholder="Rechercher un appareil" />
-                    </form>
+                    <input class="details_summary_input details_summary_input--apparels" type="search" name="Recherche" placeholder="Rechercher un appareil" />
                     <span class="details_summary_icon details_summary_icon--apparels"></span>
                 </summary>
                 <ul class="details_list details_list--apparels" role="listbox" aria-expanded="false">
@@ -65,9 +61,7 @@
             <details class="details details--utensils">
                 <summary class="details_summary details_summary--utensils">
                     <span class="details_summary_text">Ustensiles</span>
-                    <form class="details_summary_form details_summary_form--utensils" method="post" action="#">
-                        <input class="details_summary_form_input details_summary_form_input--utensils" type="search" name="Recherche" placeholder="Rechercher un ustensile" />
-                    </form>
+                    <input class="details_summary_input details_summary_input--utensils" type="search" name="Recherche" placeholder="Rechercher un ustensile" />
                     <span class="details_summary_icon details_summary_icon--utensils"></span>
                 </summary>
                 <ul class="details_list details_list--utensils" role="listbox" aria-expanded="false">
@@ -82,7 +76,7 @@
     <footer class="footer"></footer>
 
     <script src="js/constructors/Recipe.js"></script>
-    <script src="js/pages/index.js" type="module"></script>
+    <script type="module" src="js/pages/index.js"></script>
 
 </body>
 

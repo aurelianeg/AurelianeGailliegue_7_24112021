@@ -7,12 +7,12 @@
 /* Under a given breakpoint */
 /* --------------- Color chart --------------- */
 /* --------------- Breakpoints --------------- */
-html, .research_form_type, .details_summary_form_input {
+html, .research_form_input, .details_summary_input {
   font-family: "Lato", sans-serif;
   font-style: normal;
 }
 
-.research_form_type {
+.research_form_input {
   font-size: 18px;
 }
 
@@ -20,7 +20,7 @@ html, .research_form_type, .details_summary_form_input {
   font-size: 26px;
 }
 
-.details_summary_text, .details_summary_form_input, .details_list_choice {
+.details_summary_text, .details_summary_input, .details_list_choice {
   font-size: 18px;
 }
 
@@ -70,17 +70,17 @@ body {
   width: 100%;
   height: 30px;
 }
-.research_form_type {
+.research_form_input {
   width: calc(100% - 20px);
   height: 100%;
   padding: 10px;
   background-color: #E7E7E7;
   border: none;
 }
-.research_form_type::placeholder {
+.research_form_input::placeholder {
   color: rgba(0, 0, 0, 0.25);
 }
-.research_form_type:focus {
+.research_form_input:focus {
   outline: none;
 }
 
@@ -132,33 +132,30 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.details_summary_form {
+.details_summary_input {
   display: none;
-  width: 100%;
-}
-.details_summary_form_input {
   width: 100%;
   border: none;
 }
-.details_summary_form_input--ingredients {
+.details_summary_input--ingredients {
   background-color: #3282F7;
 }
-.details_summary_form_input--ingredients::placeholder {
+.details_summary_input--ingredients::placeholder {
   color: #adcdfc;
 }
-.details_summary_form_input--apparels {
+.details_summary_input--apparels {
   background-color: #68D9A4;
 }
-.details_summary_form_input--apparels::placeholder {
+.details_summary_input--apparels::placeholder {
   color: #cef3e1;
 }
-.details_summary_form_input--utensils {
+.details_summary_input--utensils {
   background-color: #ED6454;
 }
-.details_summary_form_input--utensils::placeholder {
+.details_summary_input--utensils::placeholder {
   color: #f9cdc7;
 }
-.details_summary_form_input:focus {
+.details_summary_input:focus {
   outline: none;
 }
 .details_summary_icon {
@@ -191,7 +188,7 @@ body {
   padding: 20px;
   padding-bottom: 10px;
   border-radius: 5px;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -204,7 +201,6 @@ body {
 }
 .details_list--ingredients {
   background-color: #3282F7;
-  max-height: 1700px;
 }
 .details_list--apparels {
   background-color: #68D9A4;
@@ -229,14 +225,20 @@ body {
   color: #000000;
 }
 
+.details[open] {
+  min-width: 300px;
+  max-width: 600px;
+}
 .details[open] .details_summary_text {
   display: none;
 }
-.details[open] .details_summary_form {
+.details[open] .details_summary_input {
   display: block;
 }
 .details[open] > .details_list {
   transform: translateY(0);
+  min-width: 300px;
+  max-width: 600px;
 }
 .details[open] > .details_summary .details_summary_icon::before {
   transform: translate(-5px, 0) rotate(45deg);

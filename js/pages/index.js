@@ -27,9 +27,10 @@ function addElementNotAlreadyListed(recipeElement, detailsListElements) {
 
 
 /**
- * Display all recipes, ingredients, apparels and utensils
+ * Display recipes, ingredients, apparels and utensils based on the filters
+ * @param {list} recipes
  */
-function initPage() {
+function displayRecipesIngredientsApparelsAndUtensils(recipes) {
 
     const recipesList = document.querySelector(".recipes_section");
     const detailsListIngredients = document.querySelector(".details_list--ingredients");
@@ -73,7 +74,7 @@ function initPage() {
     
     const details = document.querySelectorAll(".details");
     const detailsLists = document.querySelectorAll(".details_list");
-    const detailsWidths = [Math.ceil(document.querySelectorAll(".details_list_choice--ingredients").length/40), 
+    const detailsWidths = [Math.ceil(document.querySelectorAll(".details_list_choice--ingredients").length/10), 
                            Math.ceil(document.querySelectorAll(".details_list_choice--apparels").length/10),
                            Math.ceil(document.querySelectorAll(".details_list_choice--utensils").length/10)];
 
@@ -96,9 +97,77 @@ function initPage() {
                 }
             }
         })
-    }
+    } 
+}
 
+
+/**
+ * Page initialization
+ */
+function initPage() {
+
+    displayRecipesIngredientsApparelsAndUtensils(recipes);
     console.log("Initialization done!");
 }
 
 initPage();
+
+
+
+// ============================== FUNCTIONS AND EVENTS ==============================
+
+/**
+ * Filter recipes (with their name, description or ingredients) with user input on the main search
+ * @param {list} recipe 
+ * @param {string} value 
+ * @returns {boolean}
+ */
+function filterRecipesWithInput(recipe, value) {
+
+    // Get all fields when value is searched (name, description and all ingredients)
+    let recipeFields = [recipe.name, recipe.description];
+    for (let i = 0; i < recipe.ingredients.length; i++) {
+        recipeFields.push(recipe.ingredients[i].ingredient);
+    }
+
+    // Return true if value is found in field
+    for (let i = 0; i < recipeFields.length; i++) {
+        if (recipeFields[i].toLowerCase().includes(value.toLowerCase())) {
+            return true;
+        }
+    }
+}
+
+
+const researchFormInput = document.querySelector(".research_form_input");
+
+researchFormInput.addEventListener("keyup", function() {
+
+    const researchUserValue = researchFormInput.value;
+    // Begin research when there are at least 3 characters
+    if (researchUserValue.length >= 3) {
+        
+        // Filter recipes with user input value
+        const filteredRecipes = recipes.filter((recipe) => (filterRecipesWithInput(recipe, researchUserValue)));
+    
+        const recipesList = document.querySelector(".recipes_section");
+        const detailsListIngredients = document.querySelector(".details_list--ingredients");
+        const detailsListApparels = document.querySelector(".details_list--apparels");
+        const detailsListUtensils = document.querySelector(".details_list--utensils");
+        // Empty recipes section and details
+        recipesList.innerHTML = "";
+        detailsListIngredients.innerHTML = "";
+        detailsListApparels.innerHTML = "";
+        detailsListUtensils.innerHTML = "";
+
+        // Recreate only filtered recipes, ingredients, apparels and utensils
+        displayRecipesIngredientsApparelsAndUtensils(filteredRecipes);
+
+        if (recipesList.innerHTML == "") {
+            recipesList.innerHTML = 'Aucune recette ne correspond à votre critère...<br>Vous pouvez chercher "tarte aux pommes", "poisson", etc.';
+        }
+    }
+    else {
+        displayRecipesIngredientsApparelsAndUtensils(recipes);
+    }
+})

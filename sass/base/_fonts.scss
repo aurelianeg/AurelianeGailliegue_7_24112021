@@ -1,4 +1,4 @@
-html, .research_form_type, .details_summary_form_input
+html, .research_form_input, .details_summary_input
 {
     font-family: "Lato", sans-serif;
     font-style: normal;
@@ -6,7 +6,7 @@ html, .research_form_type, .details_summary_form_input
 
 // ---------- Research bar ----------
 
-.research_form_type
+.research_form_input
 {
     font-size: 18px;
 }
@@ -18,7 +18,7 @@ html, .research_form_type, .details_summary_form_input
 
 // ---------- Details ----------
 
-.details_summary_text, .details_summary_form_input, .details_list_choice
+.details_summary_text, .details_summary_input, .details_list_choice
 {
     font-size: 18px;
 }
