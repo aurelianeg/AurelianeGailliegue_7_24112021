@@ -11,11 +11,11 @@ class Recipe {
         this._time = recipe.time
         this._description = recipe.description
         this._appliance = recipe.appliance
-        this._ustensils = recipe.ustensils
+        this._utensils = recipe.utensils
     }
 
     /**
-     * Create gallery element for media in HTML
+     * Create recipe in HTML
      * @returns {DOMElement}
      */
     get createCard() {
@@ -44,6 +44,7 @@ class Recipe {
         // Recipe
         const recipe = document.createElement("article");
         recipe.classList.add("recipes");
+        recipe.setAttribute("id", `${this._name}`);
 
         // Picture
         const recipePicture = document.createElement("div");
@@ -115,10 +116,10 @@ class Recipe {
 
         for (let i = 0; i < this._ingredients.length; i++) {
             const recipeIngredient = document.createElement("li");
+            recipeIngredient.setAttribute("id", `${this._ingredients[i].ingredient}`);
             recipeIngredients.push(recipeIngredient);
             const recipeIngredientLink = document.createElement("a");
             recipeIngredientLink.classList.add("details_list_choice", "details_list_choice--ingredients");
-            recipeIngredientLink.setAttribute("id", `${this._ingredients[i].ingredient}`);
             recipeIngredientLink.setAttribute("role", "option");
             recipeIngredientLink.innerHTML = `${this._ingredients[i].ingredient}`;
             recipeIngredient.appendChild(recipeIngredientLink);
@@ -132,9 +133,9 @@ class Recipe {
         //<li><a class="details_list_choice details_list_choice--apparels" id="XXX" role="option"></a></li>
 
         const recipeApparel = document.createElement("li");
+        recipeApparel.setAttribute("id", `${this._appliance}`);
         const recipeApparelLink = document.createElement("a");
         recipeApparelLink.classList.add("details_list_choice", "details_list_choice--apparels");
-        recipeApparelLink.setAttribute("id", `${this._appliance}`);
         recipeApparelLink.setAttribute("role", "option");
         recipeApparelLink.innerHTML = `${this._appliance}`;
         recipeApparel.appendChild(recipeApparelLink);
@@ -148,14 +149,14 @@ class Recipe {
 
         const recipeUtensils = [];
 
-        for (let i = 0; i < this._ustensils.length; i++) {
+        for (let i = 0; i < this._utensils.length; i++) {
             const recipeUtensil = document.createElement("li");
+            recipeUtensil.setAttribute("id", `${this._utensils[i]}`);
             recipeUtensils.push(recipeUtensil);
             const recipeUtensilLink = document.createElement("a");
             recipeUtensilLink.classList.add("details_list_choice", "details_list_choice--utensils");
-            recipeUtensilLink.setAttribute("id", `${this._ustensils[i]}`);
             recipeUtensilLink.setAttribute("role", "option");
-            recipeUtensilLink.innerHTML = `${this._ustensils[i]}`;
+            recipeUtensilLink.innerHTML = `${this._utensils[i]}`;
             recipeUtensil.appendChild(recipeUtensilLink);
         }
 
