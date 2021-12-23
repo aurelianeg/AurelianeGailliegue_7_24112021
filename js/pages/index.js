@@ -1,8 +1,7 @@
 import { recipes } from "../../data/recipes.js";
 
 
-let filteredInputRecipes = [];
-let filteredTagRecipes = [];
+let filteredRecipes = [];
 
 const researchFormInput = document.querySelector(".research_form_input");
 
@@ -210,51 +209,49 @@ function findValueInRecipe(recipe, value) { //!!!!!!!!!
 
 /**
  * Filter recipes with user input value
- * @param {list} recipes 
- * @param {list} filteredInputRecipes 
- * @param {list} filteredTagRecipes
+ * @param {list} recipes
+ * @param {list} filteredRecipes
  * @param {string} value
  * @returns list
  */
-function filterRecipesByInput(recipes, filteredInputRecipes, filteredTagRecipes, value) {
+function filterRecipesByInput(recipes, filteredRecipes, value) {
 
     // Begin research when there are at least 3 characters
     if (value.length >= 3) {
-        // If recipes were already filtered with a tag
-        if (filteredTagRecipes.length != 0) {
-            filteredInputRecipes = filteredTagRecipes.filter((recipe) => (findValueInRecipe(recipe, value)));
-            console.log("Input, tag");
+        // If recipes were already filtered
+        if (filteredRecipes.length != 0) {
+            filteredRecipes = filteredRecipes.filter((recipe) => (findValueInRecipe(recipe, value)));
+            console.log("Input, filter");
         }
-        // If recipes were not filtered with input search or with a tag
+        // If recipes were not filtered
         else {
-            filteredInputRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, value)));
-            console.log("Input, no tag");
+            filteredRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, value)));
+            console.log("Input, no filter");
         }
     }
     else {
-        if (filteredTagRecipes.length != 0) {
-            filteredInputRecipes = [];
-            filteredInputRecipes = filterRecipesByTags(recipes, filteredInputRecipes, filteredTagRecipes);
-            console.log("No input, tag");
+        if (filteredRecipes.length != 0) {
+            filteredRecipes = [];
+            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
+            console.log("No input, tag filter");
         }
         else {
-            filteredInputRecipes = recipes;
-            console.log("No input, no tag");
+            filteredRecipes = recipes;
+            console.log("No input, no filter");
         }
     }
 
-    return filteredInputRecipes;
+    return filteredRecipes;
 }
 
 
 /**
  * Filter recipes with tags
  * @param {list} recipes 
- * @param {list} filteredInputRecipes 
- * @param {list} filteredTagRecipes 
+ * @param {list} filteredRecipes
  * @returns list
  */
-function filterRecipesByTags(recipes, filteredInputRecipes, filteredTagRecipes) {
+function filterRecipesByTags(recipes, filteredRecipes, restart) {
 
     // Filter recipes with tags
     const tags = document.querySelectorAll(".tag");
@@ -263,34 +260,23 @@ function filterRecipesByTags(recipes, filteredInputRecipes, filteredTagRecipes) 
         let tagName = tags[i].getAttribute("id");
 
         // If recipes were already filtered with input search
-        if (filteredInputRecipes.length != 0) {
-            filteredTagRecipes = filteredInputRecipes.filter((recipe) => (findValueInRecipe(recipe, tagName)));
-            console.log("filteredInputRecipes", filteredInputRecipes);
-            console.log("filteredInputRecipes.length", filteredInputRecipes.length);
-            console.log("Tag, input");
+        if (filteredRecipes.length != 0 && restart == false) {
+            filteredRecipes = filteredRecipes.filter((recipe) => (findValueInRecipe(recipe, tagName)));
+            console.log("Tag, filter");
         }
-        // If recipes were not filtered with input search
+        // If recipes were not filtered with input search or if the filtering is restarting (following a tag removal)
         else {
-            if (i == 0) { // If there's only one tag, or if it's the first tag
-                filteredTagRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, tagName)));
-            }
-            else { // For other tags
-                filteredTagRecipes = filteredTagRecipes.filter((recipe) => (findValueInRecipe(recipe, tagName)));
-            }
-            console.log("Tag, no input");
+            filteredRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, tagName)));
+            restart = false;
+            console.log("Tag, no filter");
         }
     }
     
     if (tags.length == 0) {
-        if (filteredInputRecipes.length != 0) {
-            filteredTagRecipes = filteredInputRecipes;
-        }
-        else {
-            filteredTagRecipes = recipes;
-        }
+        filteredRecipes = recipes;
     }
 
-    return filteredTagRecipes;
+    return filteredRecipes;
 }
 
 
@@ -299,9 +285,9 @@ researchFormInput.addEventListener("keyup", function() {
     const researchUserValue = researchFormInput.value;
 
     // Filter recipes with user input value
-    filteredInputRecipes = filterRecipesByInput(recipes, filteredInputRecipes, filteredTagRecipes, researchUserValue);
+    filteredRecipes = filterRecipesByInput(recipes, filteredRecipes, researchUserValue);
     // Empty and recreate only filtered recipes, ingredients, apparels and utensils
-    displayRecipesIngredientsApparelsAndUtensils(filteredInputRecipes);
+    displayRecipesIngredientsApparelsAndUtensils(filteredRecipes);
 })
 
 
@@ -332,9 +318,9 @@ function listenToDetailsChoicesEvents() {
             tagList.appendChild(tag);
 
             // Filter recipes with tag
-            filteredTagRecipes = filterRecipesByTags(recipes, filteredInputRecipes, filteredTagRecipes);
+            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
             // Empty and recreate only filtered recipes, ingredients, apparels and utensils
-            displayRecipesIngredientsApparelsAndUtensils(filteredTagRecipes); 
+            displayRecipesIngredientsApparelsAndUtensils(filteredRecipes); 
         })
     })
 }
@@ -353,9 +339,9 @@ function listenToTagIconsEvents() {
             tagIcon.parentElement.remove();
 
             // Filter recipes with remaining tags
-            filteredTagRecipes = filterRecipesByTags(recipes, filteredInputRecipes, filteredTagRecipes);
+            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, true);
             // Recreate only filtered recipes, ingredients, apparels and utensils
-            displayRecipesIngredientsApparelsAndUtensils(filteredTagRecipes);
+            displayRecipesIngredientsApparelsAndUtensils(filteredRecipes);
         })
     })
 }
