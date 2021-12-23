@@ -116,6 +116,7 @@ class Recipe {
 
         for (let i = 0; i < this._ingredients.length; i++) {
             const recipeIngredient = document.createElement("li");
+            recipeIngredient.classList.add("details_list_element", "details_list_element--ingredients");
             recipeIngredient.setAttribute("id", `${this._ingredients[i].ingredient}`);
             recipeIngredients.push(recipeIngredient);
             const recipeIngredientLink = document.createElement("a");
@@ -133,6 +134,7 @@ class Recipe {
         //<li><a class="details_list_choice details_list_choice--apparels" id="XXX" role="option"></a></li>
 
         const recipeApparel = document.createElement("li");
+        recipeApparel.classList.add("details_list_element", "details_list_element--apparels");
         recipeApparel.setAttribute("id", `${this._appliance}`);
         const recipeApparelLink = document.createElement("a");
         recipeApparelLink.classList.add("details_list_choice", "details_list_choice--apparels");
@@ -151,6 +153,7 @@ class Recipe {
 
         for (let i = 0; i < this._utensils.length; i++) {
             const recipeUtensil = document.createElement("li");
+            recipeUtensil.classList.add("details_list_element", "details_list_element--utensils");
             recipeUtensil.setAttribute("id", `${this._utensils[i]}`);
             recipeUtensils.push(recipeUtensil);
             const recipeUtensilLink = document.createElement("a");

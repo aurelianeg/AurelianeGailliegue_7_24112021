@@ -158,7 +158,9 @@ body {
 .details_summary_input {
   display: none;
   width: 100%;
+  padding-right: 10px;
   border: none;
+  color: #FFFFFF;
 }
 .details_summary_input--ingredients {
   background-color: #3282F7;
@@ -177,6 +179,9 @@ body {
 }
 .details_summary_input--utensils::placeholder {
   color: #f9cdc7;
+}
+.details_summary_input::-webkit-search-cancel-button {
+  appearance: none;
 }
 .details_summary_input:focus {
   outline: none;

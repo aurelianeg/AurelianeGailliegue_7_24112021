@@ -1,9 +1,8 @@
 import { recipes } from "../../data/recipes.js";
 
-
 let filteredRecipes = [];
-
 const researchFormInput = document.querySelector(".research_form_input");
+const detailsInputs = document.querySelectorAll(".details_summary_input");
 
 
 // ============================== INITIALIZATION ==============================
@@ -66,7 +65,7 @@ function addElementNotAlreadyListed(recipeElement, detailsListElements, tags) {
  * Display recipes, ingredients, apparels and utensils based on the filters
  * @param {list} recipes
  */
-function displayRecipesIngredientsApparelsAndUtensils(recipes) {
+function displayRecipesAndDetails(recipes) {
 
     // Empty recipes section and details
     const recipesList = document.querySelector(".recipes_section");
@@ -129,9 +128,9 @@ function displayRecipesIngredientsApparelsAndUtensils(recipes) {
     
     const details = document.querySelectorAll(".details");
     const detailsLists = document.querySelectorAll(".details_list");
-    const detailsWidths = [Math.ceil(document.querySelectorAll(".details_list_choice--ingredients").length/10), 
-                           Math.ceil(document.querySelectorAll(".details_list_choice--apparels").length/10),
-                           Math.ceil(document.querySelectorAll(".details_list_choice--utensils").length/10)];
+    const detailsWidths = [Math.ceil(document.querySelectorAll(".details_list_element--ingredients").length/10), 
+                           Math.ceil(document.querySelectorAll(".details_list_element--apparels").length/10),
+                           Math.ceil(document.querySelectorAll(".details_list_element--utensils").length/10)];
 
     // Adapt details widths (based on the numbers of list elements) when opened or closed
     for (let i = 0; i < details.length; i++) {
@@ -158,8 +157,8 @@ function displayRecipesIngredientsApparelsAndUtensils(recipes) {
         details[k].open = false;
     }
 
-    // Listen to details list choices which are recreated at each filter
-    listenToDetailsChoicesEvents();
+    // Listen to details list elements which are recreated at each filter
+    listenToDetailsElementsEvents();
     // Listen to tag icons which are created
     listenToTagIconsEvents();
 }
@@ -170,7 +169,7 @@ function displayRecipesIngredientsApparelsAndUtensils(recipes) {
  */
 function initPage() {
 
-    displayRecipesIngredientsApparelsAndUtensils(recipes);
+    displayRecipesAndDetails(recipes);
     console.log("Initialization done!");
 }
 
@@ -180,13 +179,15 @@ initPage();
 
 // ============================== FUNCTIONS AND EVENTS ==============================
 
+// ------------------------------ Recipes' filtering ------------------------------
+
 /**
  * Filter recipes (with their name, description or ingredients) with a given value
  * @param {list} recipe 
  * @param {string} value 
  * @returns {boolean}
  */
-function findValueInRecipe(recipe, value) { //!!!!!!!!!
+function findValueInRecipe(recipe, value) {
 
     // Get all fields when value is searched (name, description and all ingredients
     // + appliance and all utensils or it can't work)
@@ -221,23 +222,19 @@ function filterRecipesByInput(recipes, filteredRecipes, value) {
         // If recipes were already filtered
         if (filteredRecipes.length != 0) {
             filteredRecipes = filteredRecipes.filter((recipe) => (findValueInRecipe(recipe, value)));
-            console.log("Input, filter");
         }
         // If recipes were not filtered
         else {
             filteredRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, value)));
-            console.log("Input, no filter");
         }
     }
     else {
         if (filteredRecipes.length != 0) {
             filteredRecipes = [];
             filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
-            console.log("No input, tag filter");
         }
         else {
             filteredRecipes = recipes;
-            console.log("No input, no filter");
         }
     }
 
@@ -262,13 +259,11 @@ function filterRecipesByTags(recipes, filteredRecipes, restart) {
         // If recipes were already filtered with input search
         if (filteredRecipes.length != 0 && restart == false) {
             filteredRecipes = filteredRecipes.filter((recipe) => (findValueInRecipe(recipe, tagName)));
-            console.log("Tag, filter");
         }
         // If recipes were not filtered with input search or if the filtering is restarting (following a tag removal)
         else {
             filteredRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, tagName)));
             restart = false;
-            console.log("Tag, no filter");
         }
     }
     
@@ -287,32 +282,32 @@ researchFormInput.addEventListener("keyup", function() {
     // Filter recipes with user input value
     filteredRecipes = filterRecipesByInput(recipes, filteredRecipes, researchUserValue);
     // Empty and recreate only filtered recipes, ingredients, apparels and utensils
-    displayRecipesIngredientsApparelsAndUtensils(filteredRecipes);
+    displayRecipesAndDetails(filteredRecipes);
 })
 
 
 /**
- * Listen to details list choices events, which are recreated at each filter
+ * Listen to details list elements events, which are recreated at each filter
  */
-function listenToDetailsChoicesEvents() {
+function listenToDetailsElementsEvents() {
 
     const tagList = document.querySelector(".tag_section");
-    const detailsListChoices = document.querySelectorAll(".details_list_choice");
+    const detailsListElements = document.querySelectorAll(".details_list_element");
 
-    detailsListChoices.forEach(function(detailsListChoice) {
-        detailsListChoice.addEventListener("click", function() {
+    detailsListElements.forEach(function(detailsListElement) {
+        detailsListElement.addEventListener("click", function() {
 
             // Tag creation
-            let tagName = detailsListChoice.innerHTML;
+            let tagName = detailsListElement.getAttribute("id");
             let tagModel = new Tag(tagName);
             let tag;
-            if (detailsListChoice.classList.contains("details_list_choice--ingredients")) {
+            if (detailsListElement.classList.contains("details_list_element--ingredients")) {
                 tag = tagModel.createIngredientTag;
             }
-            else if (detailsListChoice.classList.contains("details_list_choice--apparels")) {
+            else if (detailsListElement.classList.contains("details_list_element--apparels")) {
                 tag = tagModel.createApparelTag;
             }
-            else if (detailsListChoice.classList.contains("details_list_choice--utensils")) {
+            else if (detailsListElement.classList.contains("details_list_element--utensils")) {
                 tag = tagModel.createUtensilTag;
             }
             tagList.appendChild(tag);
@@ -320,7 +315,12 @@ function listenToDetailsChoicesEvents() {
             // Filter recipes with tag
             filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
             // Empty and recreate only filtered recipes, ingredients, apparels and utensils
-            displayRecipesIngredientsApparelsAndUtensils(filteredRecipes); 
+            displayRecipesAndDetails(filteredRecipes);
+
+            // Empty input values at each choice's click
+            detailsInputs.forEach(function(detailsInput) {
+                detailsInput.value = "";
+            })
         })
     })
 }
@@ -341,7 +341,42 @@ function listenToTagIconsEvents() {
             // Filter recipes with remaining tags
             filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, true);
             // Recreate only filtered recipes, ingredients, apparels and utensils
-            displayRecipesIngredientsApparelsAndUtensils(filteredRecipes);
+            displayRecipesAndDetails(filteredRecipes);
         })
     })
 }
+
+
+// ------------------------------ Details' filtering ------------------------------
+
+/**
+ * Display details' summary elements containing user input value
+ * @param {list} elements
+ * @param {string} value
+ */
+function displayFilteredElementsByInput(elements, value) {
+
+    for (let i = 0; i < elements.length; i++) {
+        let id = elements[i].getAttribute("id");
+
+        // Hide element if value is not found in it
+        if (id.toLowerCase().includes(value.toLowerCase())) {
+            elements[i].style.display = "flex";
+        }
+        else {
+            elements[i].style.display = "none";
+        }
+    }
+}
+
+
+detailsInputs.forEach(function(detailsInput) {
+    
+    detailsInput.addEventListener("keyup", function() {
+
+        // Display only elements with user input value
+        const detailsInputValue = detailsInput.value;
+        const detailsListElements = document.querySelectorAll(".details_list_element");
+        displayFilteredElementsByInput(detailsListElements, detailsInputValue);
+    })
+})
