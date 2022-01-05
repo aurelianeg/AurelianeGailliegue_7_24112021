@@ -192,19 +192,18 @@ function findValueInRecipe(recipe, value) {
     // Get all fields when value is searched (name, description and all ingredients
     // + appliance and all utensils or it can't work)
     let recipeFields = [recipe.name, recipe.description, recipe.appliance];
-    for (let i = 0; i < recipe.ingredients.length; i++) {
-        recipeFields.push(recipe.ingredients[i].ingredient);
-    }
-    for (let j = 0; j < recipe.utensils.length; j++) {
-        recipeFields.push(recipe.utensils[j]);
-    }
+    let recipeIngredients = recipe.ingredients;
+    recipeIngredients.forEach(function(recipeIngredient) {
+        recipeFields.push(recipeIngredient.ingredient);
+    })
+    let recipeUtensils = recipe.utensils;
+    recipeUtensils.forEach(function(recipeUtensil) {
+        recipeFields.push(recipeUtensil);
+    })
 
-    // Return true if value is found in field
-    for (let k = 0; k < recipeFields.length; k++) {
-        if (recipeFields[k].toLowerCase().includes(value.toLowerCase())) {
-            return true;
-        }
-    }
+    // Return true if value is found in a field, and false if value isn't found in any of the fields
+    let valueInRecipe = recipeFields.some(recipeField => recipeField.toLowerCase().includes(value.toLowerCase()));
+    return valueInRecipe;
 }
 
 
