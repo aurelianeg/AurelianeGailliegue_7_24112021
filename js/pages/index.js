@@ -221,11 +221,25 @@ function filterRecipesByInput(recipes, filteredRecipes, value) {
     if (value.length >= 3) {
         // If recipes were already filtered
         if (filteredRecipes.length != 0) {
-            filteredRecipes = filteredRecipes.filter((recipe) => (findValueInRecipe(recipe, value)));
+            // Filter recipes already filtered
+            let newFilteredRecipes = [];
+            for (let i = 0; i < filteredRecipes.length; i++) {
+                if (findValueInRecipe(filteredRecipes[i], value) == true) {
+                    newFilteredRecipes.push(filteredRecipes[i]);
+                }
+            }
+            filteredRecipes = newFilteredRecipes;
         }
         // If recipes were not filtered
         else {
-            filteredRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, value)));
+            // Filter recipes
+            let newFilteredRecipes = [];
+            for (let j = 0; j < filteredRecipes.length; j++) {
+                if (findValueInRecipe(recipes[j], value) == true) {
+                    newFilteredRecipes.push(recipes[j]);
+                }
+            }
+            filteredRecipes = newFilteredRecipes;
         }
     }
     else {
