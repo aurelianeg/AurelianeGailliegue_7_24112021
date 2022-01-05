@@ -12,7 +12,7 @@ const detailsInputs = document.querySelectorAll(".details_summary_input");
  * @param {DOMElement} recipeElement 
  * @param {DOMElement} detailsListElements 
  */
- function addRecipeNotAlreadyListed(recipe, recipesList) {
+function addRecipeNotAlreadyListed(recipe, recipesList) {
 
     // Check if recipe is already in list
     let isRecipeAlreadyListed = false;
