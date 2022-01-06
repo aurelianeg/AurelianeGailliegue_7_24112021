@@ -195,11 +195,11 @@ function findValueInRecipe(recipe, value) {
     let recipeIngredients = recipe.ingredients;
     recipeIngredients.forEach(function(recipeIngredient) {
         recipeFields.push(recipeIngredient.ingredient);
-    })
+    });
     let recipeUtensils = recipe.utensils;
     recipeUtensils.forEach(function(recipeUtensil) {
         recipeFields.push(recipeUtensil);
-    })
+    });
 
     // Return true if value is found in a field, and false if value isn't found in any of the fields
     let valueInRecipe = recipeFields.some(recipeField => recipeField.toLowerCase().includes(value.toLowerCase()));
