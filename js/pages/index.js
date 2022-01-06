@@ -217,12 +217,14 @@ function findValueInRecipe(recipe, value) {
  */
 function filterRecipesByInput(recipes, filteredRecipes, value) {
 
-    // Begin research when there are at least 3 characters
-    if (value.length >= 3) {
-        // If recipes were already filtered
-        if (filteredRecipes.length != 0) {
-            filteredRecipes = [];
-            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
+    // If recipes were already filtered
+    if (filteredRecipes.length != 0) {
+        // Begin again the filtering by tags
+        filteredRecipes = [];
+        filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
+
+        // Begin research when there are at least 3 characters
+        if (value.length >= 3) {
             // Filter recipes already filtered
             let newFilteredRecipes = [];
             for (let i = 0; i < filteredRecipes.length; i++) {
@@ -232,8 +234,11 @@ function filterRecipesByInput(recipes, filteredRecipes, value) {
             }
             filteredRecipes = newFilteredRecipes;
         }
-        // If recipes were not filtered
-        else {
+    }
+    // If recipes were not filtered
+    else {
+        // Begin research when there are at least 3 characters
+        if (value.length >= 3) {
             // Filter recipes
             let newFilteredRecipes = [];
             for (let j = 0; j < recipes.length; j++) {
@@ -242,12 +247,6 @@ function filterRecipesByInput(recipes, filteredRecipes, value) {
                 }
             }
             filteredRecipes = newFilteredRecipes;
-        }
-    }
-    else {
-        if (filteredRecipes.length != 0) {
-            filteredRecipes = [];
-            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
         }
         else {
             filteredRecipes = recipes;
