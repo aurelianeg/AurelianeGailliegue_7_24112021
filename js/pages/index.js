@@ -217,23 +217,22 @@ function findValueInRecipe(recipe, value) {
  */
 function filterRecipesByInput(recipes, filteredRecipes, value) {
 
-    // Begin research when there are at least 3 characters
-    if (value.length >= 3) {
-        // If recipes were already filtered
-        if (filteredRecipes.length != 0) {
-            filteredRecipes = [];
-            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
+    // If recipes were already filtered
+    if (filteredRecipes.length != 0) {
+        // Begin again the filtering by tags
+        filteredRecipes = [];
+        filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
+
+        // Begin research when there are at least 3 characters
+        if (value.length >= 3) {
             filteredRecipes = filteredRecipes.filter((recipe) => (findValueInRecipe(recipe, value)));
         }
-        // If recipes were not filtered
-        else {
-            filteredRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, value)));
-        }
     }
+    // If recipes were not filtered
     else {
-        if (filteredRecipes.length != 0) {
-            filteredRecipes = [];
-            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
+        // Begin research when there are at least 3 characters
+        if (value.length >= 3) {
+            filteredRecipes = recipes.filter((recipe) => (findValueInRecipe(recipe, value)));
         }
         else {
             filteredRecipes = recipes;
