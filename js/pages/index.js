@@ -221,6 +221,8 @@ function filterRecipesByInput(recipes, filteredRecipes, value) {
     if (value.length >= 3) {
         // If recipes were already filtered
         if (filteredRecipes.length != 0) {
+            filteredRecipes = [];
+            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
             filteredRecipes = filteredRecipes.filter((recipe) => (findValueInRecipe(recipe, value)));
         }
         // If recipes were not filtered
