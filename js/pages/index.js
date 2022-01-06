@@ -221,6 +221,8 @@ function filterRecipesByInput(recipes, filteredRecipes, value) {
     if (value.length >= 3) {
         // If recipes were already filtered
         if (filteredRecipes.length != 0) {
+            filteredRecipes = [];
+            filteredRecipes = filterRecipesByTags(recipes, filteredRecipes, false);
             // Filter recipes already filtered
             let newFilteredRecipes = [];
             for (let i = 0; i < filteredRecipes.length; i++) {
@@ -234,7 +236,7 @@ function filterRecipesByInput(recipes, filteredRecipes, value) {
         else {
             // Filter recipes
             let newFilteredRecipes = [];
-            for (let j = 0; j < filteredRecipes.length; j++) {
+            for (let j = 0; j < recipes.length; j++) {
                 if (findValueInRecipe(recipes[j], value) == true) {
                     newFilteredRecipes.push(recipes[j]);
                 }
